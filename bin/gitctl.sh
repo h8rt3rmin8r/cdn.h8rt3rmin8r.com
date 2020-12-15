@@ -217,7 +217,8 @@ function gitctl_list_dir_full() {
         fi
     fi
 
-    find "${i_n}" -maxdepth 1 -type d -printf '%p\n' | tail -n +2
+    find "${i_n}" -maxdepth 1 -type d -printf '%p\n' \
+        | tail -n +2
 
     return $?
 }
@@ -237,7 +238,9 @@ function gitctl_list_dir_names() {
         fi
     fi
 
-    find "${i_n}" -maxdepth 1 -type d -printf '%p\n' | tail -n +2 | sed 's/^.*\///'
+    find "${i_n}" -maxdepth 1 -type d -printf '%p\n' \
+        | tail -n +2 \
+        | sed 's/^.*\///'
 
     return $?
 }
@@ -439,18 +442,18 @@ function gitctl_pull() {
 
     gitctl_logger --info "${FUNCNAME}: Beginning operation"
 
-    git pull origin master
+    git pull origin main
 
     local e_c="$?"
 
     if [[ "${e_c}" -ne 0 ]]; then
-        gitctl_logger --error "${FUNCNAME}: Encountered an error while executing: 'git pull origin master'"
+        gitctl_logger --error "${FUNCNAME}: Encountered an error while executing: 'git pull origin main'"
         gitctl_logger --warning "${FUNCNAME}: Aborting remaining operations"
 
         return ${e_c}
     fi
 
-    gitctl_logger --success "${FUNCNAME}: Completed operation: git pull origin master"
+    gitctl_logger --success "${FUNCNAME}: Completed operation: git pull origin main"
     
     return ${e_c}
 }
@@ -460,18 +463,18 @@ function gitctl_push() {
 
     gitctl_logger --info "${FUNCNAME}: Beginning operation"
 
-    git push origin master
+    git push origin main
 
     local e_c="$?"
 
     if [[ "${e_c}" -ne 0 ]]; then
-        gitctl_logger --error "${FUNCNAME}: Encountered an error while executing: 'git push origin master'"
+        gitctl_logger --error "${FUNCNAME}: Encountered an error while executing: 'git push origin main'"
         gitctl_logger --warning "${FUNCNAME}: Aborting remaining operations"
 
         return ${e_c}
     fi
 
-    gitctl_logger --success "${FUNCNAME}: Completed operation: git push origin master"
+    gitctl_logger --success "${FUNCNAME}: Completed operation: git push origin main"
 
     return ${e_c}
 }

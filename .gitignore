@@ -116,6 +116,9 @@ dist
 # Archived code snippets and notes
 _archive
 
+# gitctl.sh log files
+bin/logs/*
+
 # Temporary files directory
 tmp
 

@@ -393,7 +393,6 @@ function inventory_writectl() {
 #________________________________________________________________________________
 # Declare variables
 
-_block=$'\u2588'
 here_now="${PWD}"
 sh_name="inventory.sh"
 sh_path=$(readlink -f "${0}")

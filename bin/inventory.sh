@@ -11,6 +11,8 @@
 #>    no inputs are detected, inventory will default to printing a JSON directory
 #>    tree of the files within the current working directry.
 #>
+#>    Created on 20201214 by h8rt3rmin8r
+#>
 #> USAGE:
 #>
 #>    inventory.sh <OPTION> (<INPUT>)
@@ -434,6 +436,40 @@ function inventory_writectl() {
 
 #________________________________________________________________________________
 # Declare variables
+
+_ak=$'\u002A'
+_at=$'\u0040'
+_bs=$'\u005C'
+_cm=$'\u002C'
+_co=$'\u003A'
+_ds=$'\u002D'
+_eq=$'\u003D'
+_fs=$'\u002F'
+_gt=$'\u003E'
+_hs=$'\u0023'
+_lt=$'\u003C'
+_or=$'\u007C'
+_pa=$'\u0028'
+_pb=$'\u0029'
+_pc=$'\u0025'
+_pe=$'\u002E'
+_q1=$'\u0027'
+_q2=$'\u0022'
+_qm=$'\u003F'
+_sc=$'\u003B'
+_sp=$'\u0020'
+_up=$'\u005E'
+_us=$'\u005F'
+_and=$'\u0026'
+_cba=$'\u007B'
+_cbb=$'\u007D'
+_exc=$'\u0021'
+_plu=$'\u002B'
+_sba=$'\u005B'
+_sbb=$'\u005D'
+_tik=$'\u0060'
+_til=$'\u007E'
+_usd=$'\u0024'
 
 here_now="${PWD}"
 sh_name="inventory.sh"

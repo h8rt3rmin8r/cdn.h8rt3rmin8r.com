@@ -238,6 +238,30 @@ function inventory_apath() {
     return $?
 }
 
+function inventory_bcheck() {
+    local path_base="${sh_path%\/*}"
+    local b_file="${path_base}/brand.html"
+
+    if [[ -f "${b_file}" ]]; then
+        echo "0"
+
+        return 0
+    else
+        echo "1"
+
+        return 1
+    fi
+}
+
+function inventory_bpath() {
+    local path_base="${sh_path%\/*}"
+    local b_file="${path_base}/brand.html"
+
+    echo "${b_file}"
+
+    return $?
+}
+
 function inventory_depends() {
     ## Check for the presence of required software packages
     declare -a a_depends=( "jq" "tree" )
@@ -267,11 +291,12 @@ function inventory_html() {
 
     cd "${t_dir}"
 
-    tree -x -D -h --dirsfirst --noreport --charset unicode -H "${t_dir}" 2>/dev/null \
+    tree -x -D -h --dirsfirst --noreport --charset unicode -a -L 3 -H "${t_dir}" 2>/dev/null \
         | dos2unix \
         | tr '\n' '█' \
         | sed "s/${mod_a}/\//g;s/${mod_b}//g" \
         | tr '█' '\n' \
+        | tr '\t' ' ' \
         | tail -n +30 \
         | head -n -12 >> "${tmpf}"
     
@@ -341,6 +366,15 @@ function inventory_write_analytics() {
     return $?
 }
 
+function inventory_write_brand() {
+    cat "${brand_file}" 2>/dev/null \
+        | tr -s '\t' ' ' \
+        | tr -d '\n' \
+        | tr -s ' ' ' '
+    
+    return $?
+}
+
 function inventory_write_css() {
     echo -n '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">'
 
@@ -354,12 +388,18 @@ function inventory_write_head_a() {
 }
 
 function inventory_write_head_b() {
-    echo -n  '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Site Inventory</title><meta name="description" content="inventory"><meta name="keywords" content="161803398, site inventory, inventory.sh"><style type="text/css">BODY { font-family : ariel, monospace, sans-serif; }P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}B { font-weight: normal; color: black; background-color: transparent;}A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }.VERSION { font-size: small; font-family : arial, sans-serif; }.NORM  { color: black;  background-color: transparent;}.FIFO  { color: purple; background-color: transparent;}.CHAR  { color: yellow; background-color: transparent;}.DIR   { color: blue;   background-color: transparent;}.BLOCK { color: yellow; background-color: transparent;}.LINK  { color: aqua;   background-color: transparent;}.SOCK  { color: fuchsia;background-color: transparent;}.EXEC  { color: green;  background-color: transparent;}</style>'
-    
+    echo -n '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Site Inventory</title><meta name="description" content="inventory"><meta name="keywords" content="161803398, site inventory, inventory.sh">'
+
     return $?
 }
 
 function inventory_write_head_c() {
+    echo -n '<style type="text/css">BODY { font-family : ariel, monospace, sans-serif; }P { font-weight: normal; font-family : ariel, monospace, sans-serif; color: black; background-color: transparent;}B { font-weight: normal; color: black; background-color: transparent;}A:visited { font-weight : normal; text-decoration : none; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }A:link    { font-weight : normal; text-decoration : none; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }A:hover   { color : #000000; font-weight : normal; text-decoration : underline; background-color : yellow; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }A:active  { color : #000000; font-weight: normal; background-color : transparent; margin : 0px 0px 0px 0px; padding : 0px 0px 0px 0px; display: inline; }.VERSION { font-size: small; font-family : arial, sans-serif; }.NORM  { color: black;  background-color: transparent;}.FIFO  { color: purple; background-color: transparent;}.CHAR  { color: yellow; background-color: transparent;}.DIR   { color: blue;   background-color: transparent;}.BLOCK { color: yellow; background-color: transparent;}.LINK  { color: aqua;   background-color: transparent;}.SOCK  { color: fuchsia;background-color: transparent;}.EXEC  { color: green;  background-color: transparent;}</style>'
+    
+    return $?
+}
+
+function inventory_write_head_d() {
     echo '</head><body><p>&nbsp;</p><div class="container">'
     
     return $?
@@ -372,20 +412,22 @@ function inventory_write_js() {
 }
 
 function inventory_writectl() {
+    inventory_write_head_a
+
     if [[ "${has_analytics}" -eq 0 ]]; then
-        inventory_write_head_a
         inventory_write_analytics
-        inventory_write_head_b
-        inventory_write_css
-        inventory_write_js
-        inventory_write_head_c
-    else
-        inventory_write_head_a
-        inventory_write_head_b
-        inventory_write_css
-        inventory_write_js
-        inventory_write_head_c
     fi
+
+    inventory_write_head_b
+
+    if [[ "${has_brand}" -eq 0 ]]; then
+        inventory_write_brand
+    fi
+
+    inventory_write_css
+    inventory_write_head_c
+    inventory_write_js
+    inventory_write_head_d
 
     return $?
 }
@@ -400,11 +442,16 @@ nonce="${RANDOM:0:1}${RANDOM: -1}${RANDOM: -1}${RANDOM: -1}"
 runtime="$(date '+%s%N')"
 tmpf="/tmp/${sh_name}_${runtime}-${nonce}"
 has_analytics=$(inventory_acheck)
+has_brand=$(inventory_bcheck)
+analytics_file=""
+brand_file=""
 
 if [[ "${has_analytics}" -eq 0 ]]; then
     analytics_file=$(inventory_apath)
-else
-    analytics_file=""
+fi
+
+if [[ "${has_brand}" -eq 0 ]]; then
+    brand_file=$(inventory_bpath)
 fi
 
 #________________________________________________________________________________

@@ -1,0 +1,350 @@
+{
+  "$schema": "https://cdn.h8rt3rmin8r.com/schemas/MakeIndex.schema.json",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "Ids": {
+      "type": "object",
+      "properties": {
+        "MD5": {
+          "type": "string"
+        },
+        "SHA256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "MD5",
+        "SHA256"
+      ]
+    },
+    "Name": {
+      "type": "string"
+    },
+    "NameHashes": {
+      "type": "object",
+      "properties": {
+        "MD5": {
+          "type": "string"
+        },
+        "SHA256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "MD5",
+        "SHA256"
+      ]
+    },
+    "ContentHashes": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "MD5": {
+              "type": "string"
+            },
+            "SHA256": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "MD5",
+            "SHA256"
+          ]
+        }
+      ]
+    },
+    "Extension": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "BaseName": {
+      "type": "string"
+    },
+    "StorageName": {
+      "type": "string"
+    },
+    "Encoding": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "IsSingleByte": {
+              "type": "boolean"
+            },
+            "Preamble": {
+              "type": "null"
+            },
+            "BodyName": {
+              "type": "string"
+            },
+            "EncodingName": {
+              "type": "string"
+            },
+            "HeaderName": {
+              "type": "string"
+            },
+            "WebName": {
+              "type": "string"
+            },
+            "WindowsCodePage": {
+              "type": "integer"
+            },
+            "IsBrowserDisplay": {
+              "type": "boolean"
+            },
+            "IsBrowserSave": {
+              "type": "boolean"
+            },
+            "IsMailNewsDisplay": {
+              "type": "boolean"
+            },
+            "IsMailNewsSave": {
+              "type": "boolean"
+            },
+            "EncoderFallback": {
+              "type": "object",
+              "properties": {
+                "DefaultString": {
+                  "type": "string"
+                },
+                "MaxCharCount": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "DefaultString",
+                "MaxCharCount"
+              ]
+            },
+            "DecoderFallback": {
+              "type": "object",
+              "properties": {
+                "DefaultString": {
+                  "type": "string"
+                },
+                "MaxCharCount": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "DefaultString",
+                "MaxCharCount"
+              ]
+            },
+            "IsReadOnly": {
+              "type": "boolean"
+            },
+            "CodePage": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "BodyName",
+            "CodePage",
+            "DecoderFallback",
+            "EncoderFallback",
+            "EncodingName",
+            "HeaderName",
+            "IsBrowserDisplay",
+            "IsBrowserSave",
+            "IsMailNewsDisplay",
+            "IsMailNewsSave",
+            "IsReadOnly",
+            "IsSingleByte",
+            "Preamble",
+            "WebName",
+            "WindowsCodePage"
+          ]
+        }
+      ]
+    },
+    "Size": {
+      "type": "number"
+    },
+    "IsDirectory": {
+      "type": "boolean"
+    },
+    "IsLink": {
+      "type": "boolean"
+    },
+    "ParentId": {
+      "type": "string"
+    },
+    "ParentIds": {
+      "type": "object",
+      "properties": {
+        "MD5": {
+          "type": "string"
+        },
+        "SHA256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "MD5",
+        "SHA256"
+      ]
+    },
+    "ParentName": {
+      "type": "string"
+    },
+    "ParentNameHashes": {
+      "type": "object",
+      "properties": {
+        "MD5": {
+          "type": "string"
+        },
+        "SHA256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "MD5",
+        "SHA256"
+      ]
+    },
+    "UnixTimeAccessed": {
+      "type": "integer"
+    },
+    "UnixTimeCreated": {
+      "type": "integer"
+    },
+    "UnixTimeModified": {
+      "type": "integer"
+    },
+    "TimeAccessed": {
+      "type": "string"
+    },
+    "TimeCreated": {
+      "type": "string"
+    },
+    "TimeModified": {
+      "type": "string"
+    },
+    "Items": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "Metadata": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "Source": {
+                "type": "string"
+              },
+              "Type": {
+                "type": "string"
+              },
+              "Name": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "NameHashes": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "MD5": {
+                        "type": "string"
+                      },
+                      "SHA256": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "MD5",
+                      "SHA256"
+                    ]
+                  }
+                ]
+              },
+              "Data": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "Data",
+              "Name",
+              "NameHashes",
+              "Source",
+              "Type"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "BaseName",
+    "ContentHashes",
+    "Encoding",
+    "Extension",
+    "Ids",
+    "IsDirectory",
+    "IsLink",
+    "Name",
+    "NameHashes",
+    "ParentId",
+    "ParentIds",
+    "ParentName",
+    "ParentNameHashes",
+    "Size",
+    "StorageName",
+    "TimeAccessed",
+    "TimeCreated",
+    "TimeModified",
+    "UnixTimeAccessed",
+    "UnixTimeCreated",
+    "UnixTimeModified",
+    "_id"
+  ]
+}

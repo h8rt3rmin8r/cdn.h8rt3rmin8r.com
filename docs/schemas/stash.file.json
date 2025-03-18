@@ -1,0 +1,67 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "$id": "https://docs.stashapp.cc/in-app-manual/tasks/jsonspec#",
+    "type": "object",
+    "title": "file",
+    "description": "A json file representing a source file that is indexed by StashApp. The file is named by the MD5 Code.",
+    "properties": {
+        "mod_time": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "path": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string"
+        },
+        "updated_at": {
+            "type": "string"
+        },
+        "fingerprints": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "fingerprint": {
+                        "type": ["integer", "string"]
+                    }
+                },
+                "required": ["fingerprint", "type"]
+            }
+        },
+        "size": {
+            "type": "integer"
+        },
+        "format": {
+            "type": "string"
+        },
+        "width": {
+            "type": "integer"
+        },
+        "height": {
+            "type": "integer"
+        },
+        "duration": {
+            "type": "number"
+        },
+        "video_codec": {
+            "type": "string"
+        },
+        "frame_rate": {
+            "type": "number"
+        },
+        "bitrate": {
+            "type": "integer"
+        },
+        "audio_codec": {
+            "type": "string"
+        }
+    },
+    "required": ["created_at", "fingerprints", "format", "mod_time", "path", "size", "type", "updated_at"]
+}

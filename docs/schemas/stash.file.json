@@ -6,26 +6,34 @@
     "description": "A json file representing a source file that is indexed by StashApp. The file is named by the MD5 Code.",
     "properties": {
         "mod_time": {
+            "description": "The time this file was last changed outside of StashApp. Format is YYYY-MM-DDThh:mm:ssTZD",
             "type": "string"
         },
         "type": {
+            "description": "The type of the file.",
             "type": "string"
         },
         "path": {
+            "description": "The path to the file on the filesystem",
             "type": "string"
         },
         "created_at": {
+            "description": "The time this file was added to the database. Format is YYYY-MM-DDThh:mm:ssTZD",
             "type": "string"
         },
         "updated_at": {
+            "description": "The time this file was last changed in the database. Format is YYYY-MM-DDThh:mm:ssTZD",
             "type": "string"
         },
         "fingerprints": {
+            "description": "A list of fingerprints related to the file.",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "type": {
+                        "description": "The type of the fingerprint. Possible values are md5, oshash, phash",
+                        "enum": ["md5", "oshash", "phash"],
                         "type": "string"
                     },
                     "fingerprint": {
@@ -36,30 +44,39 @@
             }
         },
         "size": {
+            "description": "The size of the file in bytes",
             "type": "integer"
         },
         "format": {
+            "description": "The format of the file (e.g. mp4, jpg, png)",
             "type": "string"
         },
         "width": {
+            "description": "The width of the file in pixels (for images and videos)",
             "type": "integer"
         },
         "height": {
+            "description": "The height of the file in pixels (for images and videos)",
             "type": "integer"
         },
         "duration": {
+            "description": "The duration of the file in seconds (only for videos)",
             "type": "number"
         },
         "video_codec": {
+            "description": "The video codec of the file (only for videos)",
             "type": "string"
         },
         "frame_rate": {
+            "description": "The frame rate of the file in frames per second (only for videos)",
             "type": "number"
         },
         "bitrate": {
+            "description": "The bitrate of the file in bits per second (only for videos)",
             "type": "integer"
         },
         "audio_codec": {
+            "description": "The audio codec of the file (only for videos)",
             "type": "string"
         }
     },

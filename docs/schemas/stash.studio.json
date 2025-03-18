@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://docs.stashapp.cc/in-app-manual/tasks/jsonspec#studiojson",
+    "title": "studio",
+    "description": "A json file representing a studio. The file is named by a MD5 Code.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "Name of the studio",
+            "type": "string"
+        },
+        "url": {
+            "description": "URL to the studios websites",
+            "type": "string"
+        },
+        "image": {
+            "description": "Logo of the studio, parsed into base64",
+            "type": "string"
+        },
+        "created_at": {
+            "description": "The time this studios data was added to the database. Format is YYYY-MM-DDThh:mm:ssTZD",
+            "type": "string"
+        },
+        "updated_at": {
+            "description": "The time this studios data was last changed in the database. Format is YYYY-MM-DDThh:mm:ssTZD",
+            "type": "string"
+        },
+        "details": {
+            "description": "Description of the studio",
+            "type": "string"
+        }
+    },
+    "required": ["name", "image", "created_at", "updated_at"]
+}

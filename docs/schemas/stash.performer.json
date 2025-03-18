@@ -1,0 +1,94 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://docs.stashapp.cc/in-app-manual/tasks/jsonspec#performerjson",
+    "title": "performer",
+    "description": "A json file representing a performer. The file is named by a MD5 Code.",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "Name of the performer",
+            "type": "string"
+        },
+        "url": {
+            "description": "URL to website of the performer",
+            "type": "string"
+        },
+        "twitter": {
+            "description": "Twitter name of the performer",
+            "type": "string"
+        },
+        "instagram": {
+            "description": "Instagram name of the performer",
+            "type": "string"
+        },
+        "birthdate": {
+            "description": "Birthdate of the performer. Format is YYYY-MM-DD",
+            "type": "string"
+        },
+        "death_date": {
+            "description": "Death date of the performer. Format is YYYY-MM-DD",
+            "type": "string"
+        },
+        "ethnicity": {
+            "description": "Ethnicity of the Performer. Possible values are black, white, asian or hispanic",
+            "type": "string"
+        },
+        "country": {
+            "description": "Country of the performer",
+            "type": "string"
+        },
+        "hair_color": {
+            "description": "Hair color of the performer",
+            "type": "string"
+        },
+        "eye_color": {
+            "description": "Eye color of the performer",
+            "type": "string"
+        },
+        "height": {
+            "description": "Height of the performer in centimeters",
+            "type": "string"
+        },
+        "weight": {
+            "description": "Weight of the performer in kilograms",
+            "type": "string"
+        },
+        "measurements": {
+            "description": "Measurements of the performer",
+            "type": "string"
+        },
+        "fake_tits": {
+            "description": "Whether performer has fake tits. Possible are Yes or No",
+            "type": "string"
+        },
+        "career_length": {
+            "description": "The time the performer has been in business. In the format YYYY-YYYY",
+            "type": "string"
+        },
+        "tattoos": {
+            "description": "Giving a description of Tattoos of the performer if any",
+            "type": "string"
+        },
+        "piercings": {
+            "description": "Giving a description of Piercings of the performer if any",
+            "type": "string"
+        },
+        "image": {
+            "description": "Image of the performer, parsed into base64",
+            "type": "string"
+        },
+        "created_at": {
+            "description": "The time this performers data was added to the database. Format is YYYY-MM-DDThh:mm:ssTZD",
+            "type": "string"
+        },
+        "updated_at": {
+            "description": "The time this performers data was last changed in the database. Format is YYYY-MM-DDThh:mm:ssTZD",
+            "type": "string"
+        },
+        "details": {
+            "description": "Description of the performer",
+            "type": "string"
+        }
+    },
+    "required": ["name", "ethnicity", "image", "created_at", "updated_at"]
+}

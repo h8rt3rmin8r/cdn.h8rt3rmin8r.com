@@ -1,17 +1,32 @@
 {
-  "$schema": "https://cdn.h8rt3rmin8r.com/schemas/MakeIndex.schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "#",
+  "title": "meta",
+  "description": "A metadata file describing a file or directory. The metadata file name concatenates the described item's name with a final string segment of '_meta.json'.",
   "type": "object",
   "properties": {
     "_id": {
+      "description": "The ID of the file or directory. This ID must be one of the values found within the 'Ids' object.",
       "type": "string"
     },
     "Ids": {
+      "description": "The known checksum-derived IDs of the item.",
       "type": "object",
       "properties": {
         "MD5": {
+          "description": "The MD5-related ID of the item.",
+          "type": "string"
+        },
+        "SHA1": {
+          "description": "The SHA1-related ID of the item.",
           "type": "string"
         },
         "SHA256": {
+          "description": "The SHA256-related ID of the item.",
+          "type": "string"
+        },
+        "SHA512": {
+          "description": "The SHA512-related ID of the item.",
           "type": "string"
         }
       },
@@ -21,15 +36,27 @@
       ]
     },
     "Name": {
+      "description": "The name of the file or directory. If the item is a file, this string will include the file's extension.",
       "type": "string"
     },
     "NameHashes": {
-      "type": "object",
+      "description": "The checksums of the item's Name string.",
+      "type": ["null","object"],
       "properties": {
         "MD5": {
+          "description": "The MD5 checksum of the item's Name string.",
+          "type": "string"
+        },
+        "SHA1": {
+          "description": "The SHA1 checksum of the item's Name string.",
           "type": "string"
         },
         "SHA256": {
+          "description": "The SHA256 checksum of the item's Name string.",
+          "type": "string"
+        },
+        "SHA512": {
+          "description": "The SHA512 checksum of the item's Name string.",
           "type": "string"
         }
       },
@@ -39,6 +66,11 @@
       ]
     },
     "ContentHashes": {
+      "description": "The checksums of the item's content (if the item is a file).",
+      "type": [
+        "null",
+        "object"
+      ],
       "anyOf": [
         {
           "type": "null"
@@ -47,9 +79,19 @@
           "type": "object",
           "properties": {
             "MD5": {
+              "description": "The MD5 checksum of the item's content.",
+              "type": "string"
+            },
+            "SHA1": {
+              "description": "The SHA1 checksum of the item's content.",
               "type": "string"
             },
             "SHA256": {
+              "description": "The SHA256 checksum of the item's content.",
+              "type": "string"
+            },
+            "SHA512": {
+              "description": "The SHA512 checksum of the item's content.",
               "type": "string"
             }
           },
@@ -61,30 +103,39 @@
       ]
     },
     "Extension": {
+      "description": "The extension of the file (if the item is a file).",
       "type": [
         "null",
         "string"
       ]
     },
     "BaseName": {
+      "description": "The base name of the file or directory. This string may be identical to the 'Name' string.",
       "type": "string"
     },
     "StorageName": {
+      "description": "The finalized name of the file or directory as it is stored in the system. This string will always begin with the '_id' of the item.",
       "type": "string"
     },
     "Encoding": {
+      "type": [
+        "null",
+        "object"
+      ],
       "anyOf": [
         {
+          "description": "If the item is a directory, this field will be null.",
           "type": "null"
         },
         {
+          "description": "Information about the encoding of the file's content.",
           "type": "object",
           "properties": {
             "IsSingleByte": {
               "type": "boolean"
             },
             "Preamble": {
-              "type": "null"
+              "type": ["null","string"]
             },
             "BodyName": {
               "type": "string"
@@ -171,82 +222,81 @@
       ]
     },
     "Size": {
+      "description": "The size of a file in bytes (if the item is a file), or the size of all contained files and directories (if the item is a directory).",
       "type": "number"
     },
     "IsDirectory": {
+      "description": "A boolean value indicating whether the item is a directory.",
       "type": "boolean"
     },
     "IsLink": {
+      "description": "A boolean value indicating whether the item is a symbolic link.",
       "type": "boolean"
     },
     "ParentId": {
-      "type": "string"
+      "description": "The ID of the parent directory of the file or directory. If the item is at the root of the system, this field will be 'x'.",
+      "type": ["null","string"]
     },
     "ParentIds": {
-      "type": "object",
-      "properties": {
-        "MD5": {
-          "type": "string"
-        },
-        "SHA256": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "MD5",
-        "SHA256"
-      ]
-    },
-    "ParentName": {
-      "type": "string"
-    },
-    "ParentNameHashes": {
-      "type": "object",
-      "properties": {
-        "MD5": {
-          "type": "string"
-        },
-        "SHA256": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "MD5",
-        "SHA256"
-      ]
-    },
-    "UnixTimeAccessed": {
-      "type": "integer"
-    },
-    "UnixTimeCreated": {
-      "type": "integer"
-    },
-    "UnixTimeModified": {
-      "type": "integer"
-    },
-    "TimeAccessed": {
-      "type": "string"
-    },
-    "TimeCreated": {
-      "type": "string"
-    },
-    "TimeModified": {
-      "type": "string"
-    },
-    "Items": {
+      "type": ["null","object"],
       "anyOf": [
         {
           "type": "null"
         },
         {
-          "type": "array",
+          "$ref": "#/definitions/Ids"
+        }
+      ]
+    },
+    "ParentName": {
+      "$ref": "#/definitions/Name"
+    },
+    "ParentNameHashes": {
+      "$ref": "#/definitions/NameHashes"
+    },
+    "UnixTimeAccessed": {
+      "description": "The Unix timestamp from when the file or directory was last accessed. This field should include milliseconds.",
+      "type": "integer"
+    },
+    "UnixTimeCreated": {
+      "description": "The Unix timestamp from when the file or directory was created. This field should include milliseconds.",
+      "type": "integer"
+    },
+    "UnixTimeModified": {
+      "description": "The Unix timestamp from when the file or directory was last modified. This field should include milliseconds.",
+      "type": "integer"
+    },
+    "TimeAccessed": {
+      "description": "The local date and time when the file or directory was last accessed. This string is in the format 'yyyy-MM-ddTHH:mm:ss.fffffffzzz'.",
+      "type": "string"
+    },
+    "TimeCreated": {
+      "description": "The local date and time when the file or directory was created. This string is in the format 'yyyy-MM-ddTHH:mm:ss.fffffffzzz'.",
+      "type": "string"
+    },
+    "TimeModified": {
+      "description": "The local date and time when the file or directory was last modified. This string is in the format 'yyyy-MM-ddTHH:mm:ss.fffffffzzz'.",
+      "type": "string"
+    },
+    "Items": {
+      "description": "The items contained within the directory (if the item is a directory). If not null, this field recursively applies the 'meta' schema to each contained item.",
+      "type": [
+        "null",
+        "array"
+      ],
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": ["null","array"],
           "items": {
             "anyOf": [
               {
                 "type": "null"
               },
               {
-                "type": "object"
+                "$ref": "#"
               }
             ]
           }
@@ -254,7 +304,7 @@
       ]
     },
     "Metadata": {
-      "type": "array",
+      "type": ["null","array"],
       "items": {
         "anyOf": [
           {
@@ -264,50 +314,42 @@
             "type": "object",
             "properties": {
               "Source": {
+                "description": "The source category of the metadata.",
                 "type": "string"
               },
               "Type": {
+                "description": "The type of metadata.",
                 "type": "string"
               },
               "Name": {
+                "description": "The name of the metadata (if being absorbed from an external file). Metadata generated internally will have a name of 'null'.",
                 "type": [
                   "null",
                   "string"
                 ]
               },
               "NameHashes": {
+                "description": "The checksums of the metadata's Name string. If the metadata is generated internally, this field will be null.",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "anyOf": [
                   {
                     "type": "null"
                   },
                   {
-                    "type": "object",
-                    "properties": {
-                      "MD5": {
-                        "type": "string"
-                      },
-                      "SHA256": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "MD5",
-                      "SHA256"
-                    ]
+                    "$ref": "#/definitions/NameHashes"
                   }
                 ]
               },
               "Data": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "object"
-                  }
+                "description": "The data of the metadata. This is a very generic field that can contain any type of data (so long as it doesn't break the JSON).",
+                "type": [
+                  "null",
+                  "string",
+                  "object",
+                  "array"
                 ]
               }
             },
@@ -324,6 +366,7 @@
     }
   },
   "required": [
+    "_id",
     "BaseName",
     "ContentHashes",
     "Encoding",
@@ -344,7 +387,6 @@
     "TimeModified",
     "UnixTimeAccessed",
     "UnixTimeCreated",
-    "UnixTimeModified",
-    "_id"
+    "UnixTimeModified"
   ]
 }
